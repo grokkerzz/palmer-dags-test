@@ -12,7 +12,7 @@ from core.create_connection_pipeline.tasks import (
 create_connection_pipeline_every_minute_dag = DAG(
     'create_connection_pipeline_every_minute_dag',
     start_date=datetime.datetime(2019, 8, 21, 8, 20, 2, 84226),
-    schedule_interval='*/5 * * * *',
+    schedule_interval='* * * * *',
     default_args=default_args,
     catchup=False,
     template_searchpath=os.environ['AIRFLOW_HOME']
