@@ -41,3 +41,14 @@ default_args = {
     'email_on_failure': True,
     'email_on_retry': False,
 }
+
+
+default_system_args = {
+    'owner': 'palmer',
+    'depends_on_past': False,
+    'retries': 1,
+    'retry_delay': timedelta(minutes=3),
+    'email': NOTIFICATION_EMAILS,
+    'email_on_failure': True,
+    'email_on_retry': False,
+}
