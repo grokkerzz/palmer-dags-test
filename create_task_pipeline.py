@@ -3,7 +3,7 @@ import datetime
 
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from dags import default_args
+from dags import default_system_args
 
 from core.create_task_pipeline.tasks import (
     read_pending_embulk_task, read_pending_sql_task,
@@ -14,7 +14,7 @@ create_task_pipeline_every_5_minute_dag = DAG(
     'create_task_pipeline_every_5_minute_dag',
     start_date=datetime.datetime(2019, 8, 21, 8, 20, 2, 84226),
     schedule_interval='*/5 * * * *',
-    default_args=default_args,
+    default_args=default_system_args,
     catchup=False,
     template_searchpath=os.environ['AIRFLOW_HOME']
 )
