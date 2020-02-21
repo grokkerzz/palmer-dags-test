@@ -3,7 +3,7 @@ import datetime
 
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from dags import default_args
+from dags import default_system_args
 
 from core.create_connection_pipeline.tasks import (
     read_pending_connection_task, update_connection_detail)
@@ -12,8 +12,8 @@ from core.create_connection_pipeline.tasks import (
 create_connection_pipeline_every_minute_dag = DAG(
     'create_connection_pipeline_every_minute_dag',
     start_date=datetime.datetime(2019, 8, 21, 8, 20, 2, 84226),
-    schedule_interval='*/3 * * * *',
-    default_args=default_args,
+    schedule_interval='* * * * *',
+    default_args=default_system_args,
     catchup=False,
     template_searchpath=os.environ['AIRFLOW_HOME']
 )
