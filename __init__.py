@@ -4,7 +4,7 @@ import requests
 from util import logger, NOTIFICATION_EMAILS
 
 
-def on_success_callback(**context):
+def on_success_callback(context):
     logger.info('Success callback')
     logger.info(context)
     logger.info(task_instance.xcom_pull(task_ids='running_update_status'))
@@ -15,7 +15,7 @@ def on_success_callback(**context):
     r = requests.put(url, data)
 
 
-def on_failure_callback(**context):
+def on_failure_callback(context):
     logger.info('Fail callback')
     logger.info(context)
     task_instance = context['task_instance']
