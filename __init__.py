@@ -7,6 +7,7 @@ from util import logger, NOTIFICATION_EMAILS
 def on_success_callback(**context):
     logger.info('Success callback')
     logger.info(context)
+    logger.info(task_instance.xcom_pull(task_ids='running_update_status'))
     task_instance = context['task_instance']
     task_id = task_instance.xcom_pull(task_ids='running_update_status', key='backend_task_id')
     task_type = task_instance.xcom_pull(task_ids='running_update_status' key='backend_task_type')
