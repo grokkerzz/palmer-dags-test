@@ -9,7 +9,7 @@ def on_success_callback(**context):
     logger.info(context)
     logger.info(task_instance.xcom_pull(task_ids='running_update_status'))
     task_instance = context['task_instance']
-    task_id = task_instance.xcom_pull(task_ids='running_update_status')
+    task_id = task_instance.xcom_pull(task_ids='running_update_status', key='backend_task_id')
     task_type = task_instance.xcom_pull(task_ids='running_update_status')
     data = { "status": "success" }
     url = "http://backend.dinovative.com/api/" + task_type + "/" + task_id
@@ -21,7 +21,7 @@ def on_failure_callback(**context):
     logger.info(context)
     task_instance = context['task_instance']
     task_id = task_instance.xcom_pull(task_ids='running_update_status', key='backend_task_id')
-    task_type = task_instance.xcom_pull(task_ids='running_update_status' key='backend_task_type')
+    task_type = task_instance.xcom_pull(task_ids='running_update_status')
     data = { "status": "failed" }
     url = "http://backend.dinovative.com/api/" + task_type + "/" + task_id
     r = requests.put(url, data)
@@ -30,7 +30,7 @@ def on_failure_callback(**context):
 def on_running_callback(task_type, task_id, **context):
     task_instance = context['task_instance']
     task_instance.xcom_push(key='backend_task_id', value=task_id)
-    task_instance.xcom_push(key='backend_task_type', value=task_type)
+    # task_instance.xcom_push(key='backend_task_type', value=task_type)
     data = { "status": "running" }
     url = "http://backend.dinovative.com/api/" + task_type + "/" + task_id
     r = requests.put(url, data)
