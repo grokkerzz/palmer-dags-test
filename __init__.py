@@ -1,5 +1,6 @@
 from datetime import timedelta
 import requests
+import os
 
 from util import logger, NOTIFICATION_EMAILS
 
@@ -10,8 +11,9 @@ def on_success_callback(context):
     task_instance = context['task_instance']
     backend_update_status = task_instance.xcom_pull(task_ids='running_update_status', key='backend_update_status')
     data = { "status": "success" }
+    headers = { "X-API-KEY": os.getenv("API_KEY") }
     url = "http://backend.dinovative.com/api/" + backend_update_status
-    r = requests.put(url, data)
+    r = requests.put(url, data, headers=headers)
 
 
 def on_failure_callback(context):
@@ -20,8 +22,9 @@ def on_failure_callback(context):
     task_instance = context['task_instance']
     backend_update_status = task_instance.xcom_pull(task_ids='running_update_status', key='backend_update_status')
     data = { "status": "failed" }
+    headers = { "X-API-KEY": os.getenv("API_KEY") }
     url = "http://backend.dinovative.com/api/" + backend_update_status
-    r = requests.put(url, data)
+    r = requests.put(url, data, headers=headers)
 
 
 def on_running_callback(task_type, task_id, **context):
@@ -29,8 +32,9 @@ def on_running_callback(task_type, task_id, **context):
     backend_update_status = task_type + "/" + task_id
     task_instance.xcom_push(key='backend_update_status', value=backend_update_status)
     data = { "status": "running" }
+    headers = { "X-API-KEY": os.getenv("API_KEY") }
     url = "http://backend.dinovative.com/api/" + backend_update_status
-    r = requests.put(url, data)
+    r = requests.put(url, data, headers=headers)
 
 
 default_args = {
