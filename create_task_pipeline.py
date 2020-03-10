@@ -13,7 +13,7 @@ from core.create_task_pipeline.tasks import (
 create_task_pipeline_every_one_minute_dag = DAG(
     'create_task_pipeline_every_one_minute_dag',
     start_date=datetime.datetime(2019, 8, 21, 8, 20, 2, 84226),
-    schedule_interval='* * * * *',
+    schedule_interval='*/3 * * * *',
     default_args=default_system_args,
     catchup=False,
     template_searchpath=os.environ['AIRFLOW_HOME']
