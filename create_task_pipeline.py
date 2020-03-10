@@ -23,28 +23,28 @@ read_pending_embulk_task_operator = PythonOperator(
     task_id='read_pending_embulk_task',
     provide_context=True,
     python_callable=read_pending_embulk_task,
-    dag=create_task_pipeline_every_5_minute_dag
+    dag=create_task_pipeline_every_one_minute_dag
 )
 
 read_pending_sql_task_operator = PythonOperator(
     task_id='read_pending_sql_task',
     provide_context=True,
     python_callable=read_pending_sql_task,
-    dag=create_task_pipeline_every_5_minute_dag
+    dag=create_task_pipeline_every_one_minute_dag
 )
 
 create_embulk_task_operator = PythonOperator(
     task_id='create_embulk_task',
     provide_context=True,
     python_callable=create_embulk_task,
-    dag=create_task_pipeline_every_5_minute_dag
+    dag=create_task_pipeline_every_one_minute_dag
 )
 
 create_sql_task_operator = PythonOperator(
     task_id='create_sql_task',
     provide_context=True,
     python_callable=create_sql_task,
-    dag=create_task_pipeline_every_5_minute_dag
+    dag=create_task_pipeline_every_one_minute_dag
 )
 
 
