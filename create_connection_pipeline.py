@@ -13,7 +13,7 @@ create_connection_pipeline_dag = DAG(
     'create_connection_pipeline_dag',
     start_date=datetime.datetime(2019, 8, 21, 8, 20, 2, 84226),
     schedule_interval=None,
-    default_args=default_system_args,
+    default_args=default_args,
     catchup=False,
     template_searchpath=os.environ['AIRFLOW_HOME']
 )
