@@ -3,7 +3,7 @@ import datetime
 
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from dags import default_system_args
+from dags import default_args
 
 from core.create_connection_pipeline.tasks import (
     read_pending_connection_task, update_connection_detail)
